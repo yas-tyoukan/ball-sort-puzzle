@@ -1,0 +1,12 @@
+node_modules
+public/js
+storybook-static
+*.log
+
+# env resources
+.envrc
+.env
+.idea
+
+# Thumbnails
+._*

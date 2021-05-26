@@ -1,0 +1,5 @@
+require: '@babel/register'
+spec:
+  - '**/*.test.js'
+exclude:
+  - '**/node_modules/**'
