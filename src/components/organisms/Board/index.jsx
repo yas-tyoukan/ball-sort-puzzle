@@ -6,6 +6,7 @@ import Tube from '~/components/organisms/Tube';
 
 const Root = styled.div`
   display: flex;
+  flex-wrap: wrap;
   >* {
     margin: 10px;
   }

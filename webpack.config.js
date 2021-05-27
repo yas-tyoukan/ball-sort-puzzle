@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = (env, args) => {
@@ -36,7 +35,6 @@ module.exports = (env, args) => {
   ];
 
   return {
-    devtool: 'inline-source-map',
     entry: './src/entries/index.jsx',
     output: {
       path: path.join(__dirname, 'public/js'),
