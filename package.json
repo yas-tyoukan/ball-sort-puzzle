@@ -13,8 +13,8 @@
     "eslint:fix": "npm run eslint -- --fix",
     "lint:css": "stylelint './src/**/*.jsx'",
     "lint:css:fix": "npm run lint:css -- --fix",
-    "storybook": "start-storybook -p 6006 -s ./server/public",
-    "build-storybook": "build-storybook",
+    "storybook": "start-storybook -p 6006 -s ./public",
+    "build-storybook": "build-storybook -o ./public/storybook",
     "create-questions": "node ./tool/createQuestions 100 ./src/questions/random.json"
   },
   "repository": {
