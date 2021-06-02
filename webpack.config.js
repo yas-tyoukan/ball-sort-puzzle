@@ -14,6 +14,8 @@ module.exports = (env, args) => {
     type: 'javascript/auto',
   }];
 
+  const plugins = [];
+
   if (!isProduction) {
     rules.push({
       enforce: 'pre',
@@ -26,13 +28,12 @@ module.exports = (env, args) => {
         },
       }],
     });
+    plugins.push(
+      new StylelintPlugin({
+        files: './src/**/*.jsx',
+      }),
+    );
   }
-
-  const plugins = [
-    new StylelintPlugin({
-      files: './src/**/*.jsx',
-    }),
-  ];
 
   return {
     entry: './src/entries/index.jsx',

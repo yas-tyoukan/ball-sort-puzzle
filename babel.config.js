@@ -22,11 +22,12 @@ module.exports = (api) => {
   const plugins = [
     [
       'babel-plugin-styled-components',
-      api.env('production')
+      api.env() === 'production'
         ? {
           fileName: false,
           displayName: false,
           pure: true,
+          minify: true,
         }
         : {
           fileName: true,
