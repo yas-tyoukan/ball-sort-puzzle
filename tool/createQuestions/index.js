@@ -9,15 +9,18 @@ const createQuestion = (level) => {
     blankTubesLength = 1;
   } else if (level < 4) {
     filledTubesLength = 3;
-    blankTubesLength = 1;
+    blankTubesLength = 2;
   } else if (level < 6) {
     filledTubesLength = 4;
     blankTubesLength = 2;
   } else if (level < 8) {
     filledTubesLength = 5;
     blankTubesLength = 2;
-  } else {
+  } else if (level < 16) {
     filledTubesLength = 8;
+    blankTubesLength = 2;
+  } else {
+    filledTubesLength = 12;
     blankTubesLength = 2;
   }
   const tubes = [];

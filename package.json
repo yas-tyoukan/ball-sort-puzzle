@@ -15,7 +15,7 @@
     "lint:css:fix": "npm run lint:css -- --fix",
     "storybook": "start-storybook -p 6006 -s ./public",
     "build-storybook": "build-storybook -o ./public/storybook",
-    "create-questions": "node ./tool/createQuestions 100 ./src/questions/random.json"
+    "create-questions": "node ./tool/createQuestions2 100 ./src/questions/random.json"
   },
   "repository": {
     "type": "git",
