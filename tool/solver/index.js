@@ -42,49 +42,47 @@ const move = (board, [f, t]) => {
 
 const isSameBoard = (b1, b2) => copyBoard(b1).sort().join('/').toString() === copyBoard(b2).sort().join('/').toString();
 
-const solve = (board, history = [], moves = [], n = 0) => {
-  if (n === 0) {
-    // eslint-disable-next-line no-param-reassign
-    history[n] = board;
-  }
-  const currentBoard = history[n];
-  if (isComplete(currentBoard)) {
-    // solved. return answer moves.
-    return moves.map(([m]) => m);
-  }
-  if (!moves[n]) {
-    // eslint-disable-next-line no-param-reassign
-    moves[n] = listValidMoves(currentBoard);
-  }
-  const undo = () => {
-    // undo
-    moves[n - 1].shift();
-    history.pop();
-    moves.pop();
-    return solve(board, history, moves, n - 1);
-  };
-  if (!moves[n].length) {
-    if (n === 0) {
+const solve = (board) => {
+  const history = [board];
+  const moves = [];
+  let n = 0;
+  let isUndo = false;
+  while (true) {
+    if (isUndo) {
+      n -= 1;
+      moves[n].shift();
+      history.pop();
+      moves.pop();
+      isUndo = false;
+    }
+    const currentBoard = history[n];
+    if (isComplete(currentBoard)) {
+      // solved. return answer moves.
+      return moves.map(([m]) => m);
+    }
+    if (!moves[n]) {
+      // eslint-disable-next-line no-param-reassign
+      moves[n] = listValidMoves(currentBoard);
+    }
+    if (n === 0 && !moves[n].length) {
       // can't solve
       return false;
     }
-    return undo();
+    if (!moves[n].length) {
+      isUndo = true;
+    }
+    if (!isUndo) {
+      const nextBoard = move(currentBoard, moves[n][0]);
+      if (history.find((b) => isSameBoard(b, nextBoard))) {
+        // 過去と一致する盤面が出てきたらundoする
+        isUndo = true;
+      } else {
+        history[n + 1] = nextBoard;
+        // next
+        n += 1;
+      }
+    }
   }
-
-  // eslint-disable-next-line no-param-reassign
-  const nextBoard = move(currentBoard, moves[n][0]);
-  if (history.find((b) => isSameBoard(b, nextBoard))) {
-    // 過去と一致する盤面が出てきたらundoする
-    return undo();
-  }
-  // eslint-disable-next-line no-param-reassign
-  history[n + 1] = nextBoard;
-  // next
-  return solve(board, history, moves, n + 1);
 };
 
-const main = () => {
-  const ret = solve([[1, 1, 2], [2], [3, 3, 3, 4], [4, 4, 4, 7], [5, 5, 5, 5], [6, 6, 6, 6], [7, 7, 7, 3], [8, 8, 8, 1], [8, 1, 2], [2]]);
-  console.log(JSON.stringify(ret, null, 2));
-};
-main();
+module.exports = solve;

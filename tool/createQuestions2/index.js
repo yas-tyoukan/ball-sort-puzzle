@@ -1,5 +1,6 @@
 const fs = require('fs');
 const Random = require('random-seed');
+const shuffle = require('../util/shuffle');
 
 // seed指定
 const rand = new Random(1);
@@ -96,15 +97,6 @@ const move = (board, [f, t]) => {
 
 const isSameBoard = (b1, b2) => copyBoard(b1).sort().join('/').toString() === copyBoard(b2).sort().join('/').toString();
 
-const shuffle = ([...array]) => {
-  for (let i = array.length - 1; i >= 0; i -= 1) {
-    const j = rand.intBetween(0, i);
-    // eslint-disable-next-line no-param-reassign
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-};
-
 const reverseSolve = (board, history = [], moves = [], n = 0) => {
   if (n === 0) {
     // eslint-disable-next-line no-param-reassign
@@ -134,7 +126,7 @@ const reverseSolve = (board, history = [], moves = [], n = 0) => {
   if (!moves[n]) {
     // 移動可能な手を設定。順序はランダム
     // eslint-disable-next-line no-param-reassign
-    moves[n] = shuffle(listValidReverseMoves(currentBoard));
+    moves[n] = shuffle(listValidReverseMoves(currentBoard), rand);
   }
   if (!moves[n].length) {
     if (n === 0) {
